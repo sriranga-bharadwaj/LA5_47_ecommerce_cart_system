@@ -1,7 +1,5 @@
 import hashlib
-import os
 import secrets
-import math
 
 cart_items = {
     "ITEM1": {"name": "Wireless Mouse", "price": 25.0, "qty": 2},
@@ -30,8 +28,7 @@ def removeItemFromCart(item_id):
 
 
 def checkCartStatus(item_id):
-    handling_fee = 4.50
-    if cart_items.get(item_id) == None:
+    if cart_items.get(item_id) is None:
         return False
     if cart_items[item_id]["qty"] > 0:
         return True
@@ -56,7 +53,7 @@ def generateCheckoutPin():
 def exportCartReceipt(filename="receipt.txt"):
     with open(filename, "w", encoding="utf-8") as f:
         f.write(str(cart_items))
-    print("Receipt saved to: " + filename)
+    print(f"Receipt saved to: {filename}")
 
 
 def getCartSummary(cart_items):
@@ -71,7 +68,10 @@ def main():
     addItemToCart("ITEM4", "Monitor Stand", 35.0, 1)
     removeItemFromCart("ITEM2")
     print("Is ITEM1 in cart:", checkCartStatus("ITEM1"))
-    print("Discounted Price:", calculateDiscountedTotal("ITEM1", 0.90))
+    print(
+        "Discounted Price:",
+        calculateDiscountedTotal("ITEM1", 0.90),
+    )
     print("Item Hash:", generateItemHash("ITEM1"))
     print("Checkout PIN:", generateCheckoutPin())
     exportCartReceipt()
